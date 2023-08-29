@@ -13,7 +13,7 @@ import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {CdkTree, CdkTreeNode} from './tree';
 
 /**
- * Node toggle to expand/collapse the node.
+ * Node toggle to expand and collapse the node.
  *
  * CdkTreeNodeToggle is intended only to be used on native button elements, elements with button role,
  * or elements with treeitem role.
@@ -37,7 +37,10 @@ export class CdkTreeNodeToggle<T, K = T> {
   }
   protected _recursive = false;
 
-  constructor(protected _tree: CdkTree<T, K>, protected _treeNode: CdkTreeNode<T, K>) {}
+  constructor(
+    protected _tree: CdkTree<T, K>,
+    protected _treeNode: CdkTreeNode<T, K>,
+  ) {}
 
   // Toggle the expanded or collapsed state of this node.
   //

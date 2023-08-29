@@ -63,9 +63,9 @@ class FakeObservableTreeKeyManagerItem
 
 interface ItemConstructorTestContext {
   description: string;
-  constructor: new (label: string) =>
-    | FakeArrayTreeKeyManagerItem
-    | FakeObservableTreeKeyManagerItem;
+  constructor: new (
+    label: string,
+  ) => FakeArrayTreeKeyManagerItem | FakeObservableTreeKeyManagerItem;
 }
 
 interface ExpandCollapseKeyEventTestContext {
@@ -167,16 +167,20 @@ describe('TreeKeyManager', () => {
         keyManager.onClick(itemList.get(0)!);
 
         expect(keyManager.getActiveItemIndex()).withContext('active item index').toBe(0);
-        expect(keyManager.getActiveItem()?.getLabel()).withContext('active item label').toBe('one');
+        expect(keyManager.getActiveItem()?.getLabel())
+          .withContext('active item label')
+          .toBe('one');
         itemList.reset([new FakeObservableTreeKeyManagerItem('parent0'), ...itemList.toArray()]);
         itemList.notifyOnChanges();
 
         expect(keyManager.getActiveItemIndex()).withContext('active item index').toBe(1);
-        expect(keyManager.getActiveItem()?.getLabel()).withContext('active item label').toBe('one');
+        expect(keyManager.getActiveItem()?.getLabel())
+          .withContext('active item label')
+          .toBe('one');
       });
 
       describe('Key events', () => {
-        it('should emit tabOut when the tab key is pressed', () => {
+        it('should emit tabOut when tab key is pressed', () => {
           const spy = jasmine.createSpy('tabOut spy');
           keyManager.tabOut.pipe(take(1)).subscribe(spy);
           keyManager.onKeydown(fakeKeyEvents.tab);
